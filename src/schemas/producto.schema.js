@@ -15,7 +15,7 @@ const productoSchemas = joi.object().keys(
             "number.min": "El precio debe contener al menos 1.",
             "number.max": "El precio debe contener como maximo 15."
         }),
-        pathImage: joi.string().max(255).messages({
+        pathImg: joi.string().max(255).messages({
             "string.max": "La imagen no puede ser superior a 255",
         }),
     }

@@ -24,13 +24,13 @@ const obtenerProductoById = async (request, response) => {
 productoController.obtenerProductoById = obtenerProductoById;
 
 const agregarProducto = async (request, response) => {
-    const {nombre, descripcion, precio, parthImg } = request.body;
+    const {nombre, descripcion, precio, pathImg } = request.body;
     try {
         const producto = await Producto.create({
             nombre,
             descripcion,
             precio,
-            parthImg
+            pathImg
         })
         response.status(201).json(producto);
     } catch (error) {
