@@ -14,13 +14,14 @@ routes.post('/fabricantes',
     fabricanteMiddleware.validarDatos,
     fabricanteController.addFabricante)
 
-routes.put('/fabricantes/:id',
+routes.put('/fabricantes/:id', 
     fabricanteMiddleware.validarId,
     fabricanteMiddleware.validarTiposDatos,
     fabricanteMiddleware.validarLongitudDatos,
     fabricanteController.updateFabricante)
 
 routes.delete('/fabricantes/:id', )
+
 routes.get('/fabricantes/:id/productos', )
 
 module.exports = routes

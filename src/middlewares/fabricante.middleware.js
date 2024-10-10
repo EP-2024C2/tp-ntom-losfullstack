@@ -39,7 +39,7 @@ const validarTiposDatos = (req, res, next) => {
         return res.status(400).json({ error: 'El número de contacto debe ser una cadena de texto.' })
     }
     if ( pathImgPerfil && typeof pathImgPerfil !== 'string' ) {
-        return res.status(400).json({ error: 'La ruta de la inagen de perfil debe ser una cadena de texto.' })
+        return res.status(400).json({ error: 'La ruta de la imagen de perfil debe ser una cadena de texto.' })
     }
     next()
 }
