@@ -59,7 +59,7 @@ const validarLongitudDatos = (req, res, next) => {
         return res.status(400).json({ error: `El número de contacto debe tener al menos ${dataMinLength.numeroContacto} caracteres.` })
     }
     if ( pathImgPerfil && pathImgPerfil.length < dataMinLength.pathImgPerfil ) {
-        return res.status(400).json({ error: `La ruta de imagen de perfil debe tener al menos ${dataMinLength.pathImgPerfil} caracteres.` })
+        return res.status(400).json({error: `La ruta de imagen de perfil debe tener al menos ${dataMinLength.pathImgPerfil} caracteres.` })
     }
     next()
 }
