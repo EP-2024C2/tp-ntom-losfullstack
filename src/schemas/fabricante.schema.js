@@ -6,6 +6,7 @@ const dataMinLength = {
     pathImgPerfil: 5
 }
 
+
 const fabricanteSchema = Joi.object({
     nombre: Joi.string().min(dataMinLength.nombre).required().messages({
         'string.base': 'El nombre debe ser una cadena de texto.',
@@ -31,5 +32,6 @@ const fabricanteSchema = Joi.object({
         'string.min': 'La ruta de la imagen de perfil debe tener al menos {#limit} caracteres.'
     }),
 })
+
 
 module.exports = { fabricanteSchema, dataMinLength }

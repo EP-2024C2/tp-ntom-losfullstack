@@ -66,4 +66,5 @@ const validarLongitudDatos = (req, res, next) => {
 fabricanteMiddleware.validarLongitudDatos = validarLongitudDatos
 
 
+
 module.exports = fabricanteMiddleware

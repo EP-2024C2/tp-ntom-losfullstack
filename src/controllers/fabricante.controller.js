@@ -84,7 +84,7 @@ const deleteFabricante = async (req, res) => {
     const id = req.params.id
     
     try {
-        const fabricante = Fabricante.findByPk(id)
+        const fabricante = await Fabricante.findByPk(id)
         if (!fabricante) {
             return res.status(404).json({ error: `El ID ${id} no corresponde a ningún fabricante.`})
         }
@@ -97,6 +97,26 @@ const deleteFabricante = async (req, res) => {
     }
 }
 fabricanteController.deleteFabricante = deleteFabricante
+
+
+
+
+const getProductsByFabricante = async (req, res) => {
+    const id = req.params.id
+
+    try {
+        const fabricante = await Fabricante.findByPk(id)
+        if (!fabricante) {
+            return res.status(404).json({ error: `El ID ${id} no corresponde a ningún fabricante.`})
+        }
+
+        //  ...
+
+    } catch (error) {
+        res.status(500).json({ error: 'Error obtener los productos del fabricante.'})
+    }
+}
+fabricanteController.getProductsByFabricante = getProductsByFabricante
 
 
 

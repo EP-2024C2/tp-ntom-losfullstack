@@ -3,6 +3,7 @@ const routes = Router()
 const fabricanteController = require('../controllers/fabricante.controller')
 const fabricanteMiddleware = require('../middlewares/fabricante.middleware')
 
+
 routes.get('/fabricantes',
     fabricanteController.getFabricantes)
 
@@ -24,6 +25,9 @@ routes.delete('/fabricantes/:id',
     fabricanteMiddleware.validarId,
     fabricanteController.deleteFabricante)
 
-routes.get('/fabricantes/:id/productos', )
+routes.get('/fabricantes/:id/productos', 
+    fabricanteMiddleware.validarId,
+    fabricanteController.getProductsByFabricante)
+
 
 module.exports = routes
