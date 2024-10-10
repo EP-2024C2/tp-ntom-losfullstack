@@ -7,6 +7,7 @@ const getFabricantes = async (req, res) => {
     try {
         const fabricantes = await Fabricante.findAll()
         res.status(200).json(fabricantes)
+
     } catch (error) {
         res.status(500).json({ error: "Error al obtener los fabricantes" });
     }
@@ -44,10 +45,15 @@ const addFabricante = async (req, res) => {
             numeroContacto,
             pathImgPerfil
         })
-        
         res.status(202).json(fabricante)
-    }
 
+    } catch (error) {
+        res.status(505).json({ error: 'Error al crear el fabricante'})
+    }
 }
+fabricanteController.addFabricante = addFabricante
+
+
+
 
 module.exports = fabricanteController

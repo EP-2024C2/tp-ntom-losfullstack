@@ -5,7 +5,7 @@ const fabricanteMiddleware = require('../middlewares/fabricante.middleware')
 
 routes.get('/fabricantes', fabricanteController.getFabricantes)
 routes.get('/fabricantes/:id', fabricanteMiddleware.validarIdFabricante, fabricanteController.getFabricante)
-routes.post('/fabricantes', )
+routes.post('/fabricantes', fabricanteMiddleware.validarFabricante, fabricanteController.addFabricante)
 routes.put('/fabricantes/:id', )
 routes.delete('/fabricantes/:id', )
 routes.get('/fabricantes/:id/productos', )
