@@ -16,8 +16,8 @@ async function startDatabase(){
     } catch (error) {
         console.log('Error al sicronizar o inicializar los datos')
     }
-} 
-
+}
+// start data base
 startDatabase()
 
 
