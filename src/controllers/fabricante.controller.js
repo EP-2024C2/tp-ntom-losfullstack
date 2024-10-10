@@ -1,4 +1,4 @@
-const { Fabricante } = require('../models/Fabricante')
+const Fabricante  = require('../models/Fabricante')
 const fabricanteController = {}
 
 
@@ -21,7 +21,6 @@ const getFabricante = async (req, res) => {
 
     try {
         const fabricante = Fabricante.findByPK(id)
-        
         if (!fabricante) {
             res.status(404).json({ error: 'Fabricante no encontrado'})
         }
@@ -52,6 +51,8 @@ const addFabricante = async (req, res) => {
     }
 }
 fabricanteController.addFabricante = addFabricante
+
+
 
 
 

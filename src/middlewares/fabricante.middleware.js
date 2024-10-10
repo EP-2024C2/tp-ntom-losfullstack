@@ -21,4 +21,5 @@ const validarFabricante = (req, res, next) => {
 }
 fabricanteMiddleware.validarFabricante = validarFabricante
 
+
 module.exports = fabricanteMiddleware
