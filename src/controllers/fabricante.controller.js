@@ -20,11 +20,11 @@ const getFabricante = async (req, res) => {
     const id = req.params.id
 
     try {
-        const fabricante = Fabricante.findByPK(id)
+        const fabricante = await Fabricante.findByPk(id)
         if (!fabricante) {
-            res.status(404).json({ error: 'Fabricante no encontrado'})
+            return res.status(404).json({ error: `El ID ${id} no corresponde a ningún fabricante`})
         }
-        res.status(200).json(fabricante)
+        return res.status(200).json(fabricante)
 
     } catch (error) {
         res.status(505).json({ error: 'Error al obtener el fabricante'})
@@ -54,6 +54,29 @@ fabricanteController.addFabricante = addFabricante
 
 
 
+const updateFabricante = async (req, res) => {
+    const id = req.params.id
+    const { nombre, direccion, numeroContacto, pathImgPerfil } = req.body
+
+    try {
+        const fabricante = await Fabricante.findByPk(id)
+        if (!fabricante) {
+            return res.status(404).json({ error: `El ID ${id} no corresponde a ningún fabricante`})
+        }
+
+        fabricante.nombre = nombre ?? fabricante.nombre
+        fabricante.direccion = direccion ?? fabricante.direccion
+        fabricante.numeroContacto = numeroContacto ?? fabricante.numeroContacto
+        fabricante.pathImgPerfil = pathImgPerfil ?? fabricante.pathImgPerfil
+        
+        await fabricante.save()
+        return res.status(202).json(fabricante)
+
+    } catch (error) {
+        res.status(505).json({ error: 'Error al modificar el fabricante'})
+    }
+}
+fabricanteController.updateFabricante = updateFabricante
 
 
 
