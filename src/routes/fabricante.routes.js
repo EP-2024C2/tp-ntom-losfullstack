@@ -20,7 +20,9 @@ routes.put('/fabricantes/:id',
     fabricanteMiddleware.validarLongitudDatos,
     fabricanteController.updateFabricante)
 
-routes.delete('/fabricantes/:id', )
+routes.delete('/fabricantes/:id',
+    fabricanteMiddleware.validarId,
+    fabricanteController.deleteFabricante)
 
 routes.get('/fabricantes/:id/productos', )
 

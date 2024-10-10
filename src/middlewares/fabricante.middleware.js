@@ -1,4 +1,3 @@
-const { Fabricante } = require('../models/Fabricante')
 const { fabricanteSchema, dataMinLength } = require('../schemas/fabricante.schema')
 const fabricanteMiddleware = {}
 
