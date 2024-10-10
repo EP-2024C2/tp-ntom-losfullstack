@@ -7,16 +7,17 @@ routes.get('/fabricantes',
     fabricanteController.getFabricantes)
 
 routes.get('/fabricantes/:id',
-    fabricanteMiddleware.validarIdFabricante,
+    fabricanteMiddleware.validarId,
     fabricanteController.getFabricante)
 
 routes.post('/fabricantes',
-    fabricanteMiddleware.validarDatosFabricante,
+    fabricanteMiddleware.validarDatos,
     fabricanteController.addFabricante)
 
 routes.put('/fabricantes/:id',
-    fabricanteMiddleware.validarIdFabricante,
-    fabricanteMiddleware.validarTiposDatosFabricante,
+    fabricanteMiddleware.validarId,
+    fabricanteMiddleware.validarTiposDatos,
+    fabricanteMiddleware.validarLongitudDatos,
     fabricanteController.updateFabricante)
 
 routes.delete('/fabricantes/:id', )
