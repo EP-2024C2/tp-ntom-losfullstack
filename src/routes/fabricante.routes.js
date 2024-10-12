@@ -4,30 +4,30 @@ const fabricanteController = require('../controllers/fabricante.controller')
 const fabricanteMiddleware = require('../middlewares/fabricante.middleware')
 
 
-routes.get('/fabricantes',
-    fabricanteController.getFabricantes)
+routes.get('/',
+    fabricanteController.obtenerFabricantes)
 
-routes.get('/fabricantes/:id',
+routes.get('/:id',
     fabricanteMiddleware.validarId,
-    fabricanteController.getFabricante)
+    fabricanteController.obtenerFabricante)
 
-routes.post('/fabricantes',
+routes.post('/',
     fabricanteMiddleware.validarDatos,
-    fabricanteController.addFabricante)
+    fabricanteController.agregarFabricante)
 
-routes.put('/fabricantes/:id', 
+routes.put('/:id', 
     fabricanteMiddleware.validarId,
     fabricanteMiddleware.validarTiposDatos,
     fabricanteMiddleware.validarLongitudDatos,
-    fabricanteController.updateFabricante)
+    fabricanteController.actualizarFabricante)
 
-routes.delete('/fabricantes/:id',
+routes.delete('/:id',
     fabricanteMiddleware.validarId,
-    fabricanteController.deleteFabricante)
+    fabricanteController.borrarFabricante)
 
-routes.get('/fabricantes/:id/productos', 
+routes.get('/:id/productos', 
     fabricanteMiddleware.validarId,
-    fabricanteController.getProductsByFabricante)
+    fabricanteController.obtenerProductosDeFabricante)
 
 
 module.exports = routes

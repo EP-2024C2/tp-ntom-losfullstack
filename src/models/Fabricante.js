@@ -1,22 +1,33 @@
-const { Model, DataTypes } = require('sequelize')
-const sequelize = require('../../config/database')
+'use strict';
+const { Model } = require('sequelize');
 
-class Fabricante extends Model {}
+module.exports = (sequelize, DataTypes) => {
 
-Fabricante.init({
-    nombre: {
-        type: DataTypes.STRING,
-        allowNull: false},
-    direccion:{
-        type: DataTypes.STRING,
-        allowNull: false},
-    numeroContacto: {
-        type: DataTypes.STRING,
-        allowNull: false},
-    pathImgPerfil: DataTypes.STRING
-}, {
-    sequelize,
-    modelName: 'fabricante'
-})
+    class Fabricante extends Model {
+        static associate(models) {
+            Fabricante.hasMany(models.Producto, { 
+                foreignKey: 'fabricanteId',
+                as: 'Productos'
+            })
+        }
+    }
 
-module.exports = Fabricante
+    Fabricante.init({
+        nombre: {
+            type: DataTypes.STRING,
+            allowNull: false},
+        direccion:{
+            type: DataTypes.STRING,
+            allowNull: false},
+        numeroContacto: {
+            type: DataTypes.STRING,
+            allowNull: false},
+        pathImgPerfil: DataTypes.STRING
+    }, {
+        sequelize,
+        modelName: 'Fabricante',
+        timestamps: false
+    });
+
+    return Fabricante;
+};
