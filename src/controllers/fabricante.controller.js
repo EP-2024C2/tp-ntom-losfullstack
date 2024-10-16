@@ -9,7 +9,6 @@ const obtenerFabricantes = async (req, res) => {
         res.status(200).json(fabricantes)
     } catch (error) {
         res.status(500).json({ error: "Error al obtener los fabricantes." });
-        console.log(error)
     }
 }
 fabricanteController.obtenerFabricantes = obtenerFabricantes
