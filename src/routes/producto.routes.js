@@ -8,7 +8,8 @@ const routes = Router();
 
 routes.get('/', productoController.obtenerProductos);
 routes.get('/:id',validateProducto, productoController.obtenerProductoById);
-routes.post('/', schemasValidator(productoSchemas), productoController.agregarProducto);
+//routes.post('/', schemasValidator(productoSchemas), productoController.agregarProducto);
+routes.post('/', productoController.agregarProducto);
 
 
 module.exports = routes;

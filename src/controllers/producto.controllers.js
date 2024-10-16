@@ -1,4 +1,5 @@
 const {Producto} = require('../models');
+const {Fabricante} = require('../models');
 
 const productoController = {};
 
@@ -24,13 +25,19 @@ const obtenerProductoById = async (request, response) => {
 productoController.obtenerProductoById = obtenerProductoById;
 
 const agregarProducto = async (request, response) => {
-    const {nombre, descripcion, precio, pathImg } = request.body;
+    const {nombre, descripcion, precio, pathImg, fabricanteId } = request.body;
     try {
+        const fabricante = await Fabricante.findByPk(fabricanteId);
+        if (!fabricante) {
+            return response.status(404).json({ error: `El ID ${fabricanteId} no corresponde a ningún fabricante.`});
+        }
+
         const producto = await Producto.create({
             nombre,
             descripcion,
             precio,
-            pathImg
+            pathImg,
+            fabricanteId 
         })
         response.status(201).json(producto);
     } catch (error) {
