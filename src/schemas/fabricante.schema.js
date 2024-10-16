@@ -6,8 +6,15 @@ const dataMinLength = {
     pathImgPerfil: 5
 }
 
+const idSchema = Joi.number().integer().positive().required().messages({
+    'number.base': 'El ID debe ser un número.',
+    'number.empty': 'El ID no puede estar vacío.',
+    'number.integer': 'El ID debe ser un número entero.', 
+    'number.positive': 'El ID debe ser un número positivo.', 
+    'any.required': 'El ID es obligatorio.'
+})
 
-const fabricanteSchema = Joi.object({
+const creationSchema = Joi.object({
     nombre: Joi.string().min(dataMinLength.nombre).required().messages({
         'string.base': 'El nombre debe ser una cadena de texto.',
         'string.empty': 'El nombre no puede estar vacío.',
@@ -33,5 +40,12 @@ const fabricanteSchema = Joi.object({
     }),
 })
 
+const updateSchema = creationSchema.fork(['nombre', 'direccion', 'numeroContacto'], (field) => field.optional());
 
-module.exports = { fabricanteSchema, dataMinLength }
+const fabricanteSchema = {
+    idSchema,
+    creationSchema,
+    updateSchema
+}
+
+module.exports = fabricanteSchema
