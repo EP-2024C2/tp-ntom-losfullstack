@@ -5,10 +5,12 @@ module.exports = (sequelize, DataTypes) => {
 
     class Fabricante extends Model {
         static associate(models) {
-            Fabricante.hasMany(models.Producto, { 
+            Fabricante.belongsToMany(models.Producto, {
+                through: 'ProductoFabricante',
+                as: 'Productos',
                 foreignKey: 'fabricanteId',
-                as: 'Productos'
-            })
+                otherKey: 'productoId'
+            });
         }
     }
 

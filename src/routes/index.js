@@ -5,7 +5,7 @@ const componenteRoutes = require('./componente.routes')
 
 const router = Router();
 
-router.use('/producto', productoRoutes);
+router.use('/productos', productoRoutes);
 router.use('/fabricantes', fabricanteRoutes);
 router.use('/componente', componenteRoutes);
 
