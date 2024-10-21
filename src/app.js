@@ -11,7 +11,7 @@ app.use(routes)
 
 async function startDatabase(){
     try {
-        await db.sequelize.sync({ force: false }) //Si ponemos en true se reiniciara la base de datos al inicar.
+        await db.sequelize.sync({ force: false })
         console.log('Base de datos sincronizada')
     } catch (error) {
         console.log('Error al sicronizar o inicializar los datos')

@@ -5,22 +5,24 @@ module.exports = (sequelize, DataTypes) =>
     {
     class Componente extends Model {
         static associate(models) {
-            Componente.belongsTo(models.Producto, {
-                foreignKey: 'productoId',
-                as: 'Productos'
+            Componente.belongsToMany(models.Producto, {
+                through: 'ProductoComponente',
+                as: 'Productos',
+                foreignKey: 'componenteId',
+                otherKey: 'productoId'
              })
         }
      }
 
 Componente.init
     ({
-    nombre: DataTypes.STRING,
-            allowNull: false,
-    descripcion: DataTypes.STRING
-    }, 
+    nombre: {type: DataTypes.STRING,
+            allowNull: false},
+    descripcion: {type: DataTypes.STRING}}, 
     {
     sequelize,
-    modelName: 'Componente'
+    modelName: 'Componente',
+    timestamps: false
     })
     return Componente;
 };

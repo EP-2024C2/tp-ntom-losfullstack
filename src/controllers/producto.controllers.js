@@ -1,6 +1,4 @@
-const {Producto} = require('../models');
-const {Fabricante} = require('../models');
-const Componente = require('../models/Componente');
+const { Fabricante, Producto, Componente } = require('../models/') 
 
 const productoController = {};
 
@@ -77,11 +75,11 @@ const eliminarProducto = async (request, response) => {
             response.status(404).json({message: 'El producto no existe'});
         }
         const fabricante = await Producto.findByPk(id, { include: 'Fabricantes' });
-        if (fabricante && producto.Fabricantes.length > 0) {
+        if (fabricante && fabricante.Fabricantes && fabricante.Fabricantes.length > 0) {
             return response.status(400).json({ error: 'No se puede eliminar el producto porque tiene fabricantes asociados.' });
         }
         const componente = await Producto.findByPk(id, { include: 'Componentes' });
-        if (componente && producto.Componentes.length > 0) {
+        if (componente && componente.Componentes && componente.Componentes.length > 0) {
             return response.status(400).json({ error: 'No se puede eliminar el producto porque tiene componentes asociados.' });
         }
         await producto.destroy()
@@ -121,7 +119,9 @@ const obtenerFabricantesDeProducto = async (request, response) => {
             include: {
                 model: Fabricante,
                 as: 'Fabricantes',
-                attributes: { exclude: ['fabricanteId'] },
+                through: {
+                    attributes: []
+                },
                 required: false
             }
         })
