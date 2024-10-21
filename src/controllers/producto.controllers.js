@@ -76,6 +76,14 @@ const eliminarProducto = async (request, response) => {
         if(!producto){
             response.status(404).json({message: 'El producto no existe'});
         }
+        const fabricante = await Producto.findByPk(id, { include: 'Fabricantes' });
+        if (fabricante && producto.Fabricantes.length > 0) {
+            return response.status(400).json({ error: 'No se puede eliminar el producto porque tiene fabricantes asociados.' });
+        }
+        const componente = await Producto.findByPk(id, { include: 'Componentes' });
+        if (componente && producto.Componentes.length > 0) {
+            return response.status(400).json({ error: 'No se puede eliminar el producto porque tiene componentes asociados.' });
+        }
         await producto.destroy()
         return response.status(200).json({message: `El producto fue con id: ${id} fue eliminado correctamente`})
     } catch (error) {
