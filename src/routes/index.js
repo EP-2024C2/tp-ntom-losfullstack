@@ -4,7 +4,7 @@ const fabricanteRoutes = require('./fabricante.routes')
 
 const router = Router();
 
-router.use('/producto', productoRoutes);
+router.use('/productos', productoRoutes);
 router.use('/fabricantes', fabricanteRoutes);
 
 module.exports = router;
