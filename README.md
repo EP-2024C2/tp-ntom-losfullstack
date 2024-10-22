@@ -48,7 +48,7 @@ Seguí estos pasos para ejecutar el proyecto:
 
 1. Iniciá el servidor:
 
-```bash npm start```
+```npm start```
 
 2. Abrí Postman o la herramienta de API que uses y probá las rutas de la API.
 
@@ -102,8 +102,10 @@ Acá tenés una lista de las rutas del proyecto listas para probar en tu herrami
     - Cuerpo (Body):
     ```json
     {
-    "nombreFabricante": "Nombre del Fabricante",
-    "direccion": "Dirección del Fabricante"
+    "nombre": "Nombre del Fabricante",
+    "direccion": "Dirección del Fabricante",
+    "numeroContacto": "Nro contacto",
+    "pathImg": "pathImg"
     }
     ```
 
@@ -117,7 +119,7 @@ Acá tenés una lista de las rutas del proyecto listas para probar en tu herrami
     - Cuerpo (Body):
     ```json
     {
-    "nombreComponente": "Nombre del Componente",
+    "nombre": "Nombre del Componente",
     "descripcion": "Descripción del Componente"
     }
     ```
@@ -154,8 +156,10 @@ Acá tenés una lista de las rutas del proyecto listas para probar en tu herrami
     - Cuerpo (Body):
     ```json
     {
-    "nombre": "Nuevo Fabricante",
-    "direccion": "Dirección del nuevo fabricante"
+    "nombre": "Nombre del Fabricante",
+    "direccion": "Dirección del Fabricante",
+    "numeroContacto": "Nro contacto",
+    "pathImg": "pathImg"
     }
     ```
 
@@ -165,8 +169,10 @@ Acá tenés una lista de las rutas del proyecto listas para probar en tu herrami
     - Cuerpo (Body):
     ```json
     {
-    "nombre": "Fabricante Actualizado",
-    "direccion": "Dirección actualizada"
+    "nombre": "Nombre nuevo del Fabricante",
+    "direccion": "Dirección nueva del Fabricante",
+    "numeroContacto": "Nro nuevo de contacto",
+    "pathImg": "pathImg"
     }
     ```
 
@@ -205,9 +211,7 @@ Acá tenés una lista de las rutas del proyecto listas para probar en tu herrami
 ```json 
     {
     "nombre": "Nuevo Componente",
-    "descripcion": "Descripción del nuevo componente",
-    "precio": 100,
-    "pathImg": "ruta/a/la/imagen.jpg"
+    "descripcion": "Descripción del nuevo componente"
     } 
 ```
 
@@ -219,9 +223,7 @@ Acá tenés una lista de las rutas del proyecto listas para probar en tu herrami
 ```json 
     {
     "nombre": "Componente Actualizado",
-    "descripcion": "Descripción actualizada",
-    "precio": 150,
-    "pathImg": "ruta/a/la/imagen_actualizada.jpg"
+    "descripcion": "Descripción actualizada"
     }
 ```
 
