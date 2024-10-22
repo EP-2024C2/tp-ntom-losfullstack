@@ -14,7 +14,7 @@ routes.get
     )
 routes.get
     (
-    '/:id', validateComponente, componenteController.obtenerComponenteById
+    '/:id', validateComponente, componenteController.obtenerComponente
     )
 routes.post
     (
@@ -22,15 +22,15 @@ routes.post
     )
 routes.put
     (
-    '/:id', validateComponente, schemasValidator(componenteSchemas.updateSchema), componenteController.updateComponente
+    '/:id', validateComponente, schemasValidator(componenteSchemas.updateSchema), componenteController.actualizarComponente
     )
 routes.delete
     (
-    '/:id', validateComponente, componenteController.deleteComponente
+    '/:id', validateComponente, componenteController.borrarComponente
     )
 routes.get
     (
-    '/:id/productos', validateComponente, componenteController.getProductosByComponente
+    '/:id/productos', validateComponente, componenteController.obtenerProductosDeComponente
     )
 
 module.exports = routes

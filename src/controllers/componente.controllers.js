@@ -14,7 +14,7 @@ const obtenerComponentes = async (request, response) =>
     }
 componenteController.obtenerComponentes = obtenerComponentes
 
-const obtenerComponenteById = async (request, response) => 
+const obtenerComponente = async (request, response) => 
     {
     const {id} = request.params
     try {
@@ -25,7 +25,7 @@ const obtenerComponenteById = async (request, response) =>
         response.status(404).json({message: 'Hubo un error al obtener el componente', messageError: error})
         }
 }
-componenteController.obtenerComponenteById = obtenerComponenteById;
+componenteController.obtenerComponente = obtenerComponente;
 
 const agregarComponente = async (request, response) => 
     {
@@ -44,7 +44,7 @@ const agregarComponente = async (request, response) =>
     }
 componenteController.agregarComponente = agregarComponente
 
-const updateComponente = async (request, response) => 
+const actualizarComponente = async (request, response) => 
     {
     const id = request.params.id
     const {nombre, descripcion} = request.body
@@ -64,9 +64,9 @@ const updateComponente = async (request, response) =>
         response.status(505).json({ error: 'Error al modificar el componente.'})
         }
     }
-componenteController.updateComponente = updateComponente
+componenteController.actualizarComponente = actualizarComponente
 
-const deleteComponente = async (request, response) => 
+const borrarComponente = async (request, response) => 
     {
     const id = request.params.id
     try {
@@ -85,9 +85,9 @@ const deleteComponente = async (request, response) =>
         response.status(500).json({ error: 'Error al eliminar el componente.'})
         }
     }
-componenteController.deleteComponente = deleteComponente
+componenteController.borrarComponente = borrarComponente
 
-const getProductosByComponente = async (request, response) => 
+const obtenerProductosDeComponente = async (request, response) => 
     {
     const id = request.params.id
     try {
@@ -106,6 +106,6 @@ const getProductosByComponente = async (request, response) =>
         response.status(500).json({ error: 'Error obtener los productos del componente.'})
         }
     }
-componenteController.getProductosByComponente = getProductosByComponente
+componenteController.obtenerProductosDeComponente = obtenerProductosDeComponente
 
 module.exports = componenteController
