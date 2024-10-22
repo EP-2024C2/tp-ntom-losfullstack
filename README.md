@@ -1,176 +1,258 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/NoutYWiV)
-# Estrategias de Persistencia - TP 2024
+# Estrategias de Persistencia - TP 2024 - Los Full Stack
 
-Este trabajo práctico tiene como objetivo principal que los alumnos adquieran experiencia práctica en la implementación de asociaciones 1 a N y N a M en el contexto de una API REST utilizando un ORM (Object-relational mapping).
+Han sido contratados por una empresa de manufactura para desarrollar un sistema interno de gestión de productos. La empresa fabrica una amplia gama de productos tecnológicos que requieren componentes específicos y son producidos por múltiples fabricantes asociados. Actualmente, el proceso de gestión de esta información es manual y está descentralizado, lo que genera demoras y problemas en la producción. La empresa busca automatizar y centralizar estos datos mediante un sistema web eficiente que permita gestionar los productos, fabricantes y componentes de manera integrada.
 
-- Asociaciones 1 a N y N a M:
-Las asociaciones 1 a N y N a M son conceptos fundamentales en el diseño de bases de datos relacionales. En una asociación 1 a N, un registro de una tabla está asociado con uno o más registros de otra tabla. Por otro lado, en una asociación N a M, varios registros de una tabla están asociados con varios registros de otra tabla a través de una tabla de unión intermedia.
+## Tabla de Contenidos
 
-- API REST:
-Una API REST (Representational State Transfer) es un conjunto de reglas y convenciones para la creación de servicios web que permiten la comunicación entre sistemas. En este trabajo práctico, utilizaremos una API REST para exponer recursos y permitir operaciones CRUD (Create, Read, Update, Delete) sobre estos recursos.
+- [Instalación](#instalación)
+- [Configuración](#configuración)
+- [Uso](#uso)
+- [Rutas de la API](#rutas-de-la-api)
+- [Estructura del Proyecto](#estructura-del-proyecto)
 
-- Enfoque Práctico:
-Los alumnos implementarán las asociaciones mencionadas anteriormente en el contexto de una API REST utilizando un ORM específico,Sequelize. Se espera que los alumnos comprendan cómo definir modelos, establecer relaciones entre ellos y utilizar las capacidades del ORM para interactuar con la base de datos.
+## Instalación
 
-- Criterios de Evaluación:
-Se evaluará la precisión y completitud en la implementación de las asociaciones en la API REST, así como la funcionalidad completa del CRUD para los recursos expuestos por la API.
+Seguí estos pasos para instalar las dependencias del proyecto:
 
-## Descripción del Proyecto
+1. Cloná el repositorio:
 
-Han sido contratados/as por una empresa de manufactura para desarrollar un sistema interno de gestión de productos. La empresa fabrica una amplia gama de productos tecnológicos que requieren componentes específicos y son producidos por múltiples fabricantes asociados. Actualmente, el proceso de gestión de esta información es manual y está descentralizado, lo que genera demoras y problemas en la producción. La empresa busca automatizar y centralizar estos datos mediante un sistema web eficiente que permita gestionar los productos, fabricantes y componentes de manera integrada.
+   ```bash git clone https://github.com/EP-2024C2/tp-ntom-losfullstack.git```
 
-## Modelo Relacional a implementar
+2. Navegá al directorio del proyecto:
 
-Basandose en el siguiente diagrama de entidad-relacion (DER) deberán generar los modelos y la asociaciones en Sequelize para que la API pueda interacturar con la base de datos a través de los Modelos.
+    ```bash cd tp-ntom-losfullstack```
 
-![DER](DER.png)
+3. Instalá las dependencias:
 
-### Descripción del modelo DER
-- Un **Producto** puede tener muchos fabricantes, y un **Fabricante** puede fabricar muchos productos.
-- Un **Producto** puede tener muchos componentes, y un **Componente** puede formar parte de varios productos.
+    ```bash npm install```
 
-### Base de datos
-El motor de base de datos a utilizar podra ser elegido por los alumnos. La recomendacion es utilizar sqlite para pruebas simple y luego probar con otro motor de base de datos tipo MySql o Postgres.
+## Configuración
 
-### Intalacion de dependencias
-Debera contar con las dependencias de produccion y desarrollo necesarias de un proyecto node. Por ejemplo:
+Configurá la base de datos y otros parámetros necesarios:
 
-```npm i sequelize sqlite3```
+1. Creá un archivo .env en la raíz del proyecto y agregá las siguientes variables de entorno:
+    ```
+    PORT=3001
+    DB_DIALECT=mysql
+    DB_HOST=localhost
+    DB_NAME=sequelize
+    DB_USER=root
+    DB_PASSWORD=
+    ```
 
-```npm i -D sequelize-cli``` 
+2. Asegurate de que tu base de datos esté en ejecución y configurada correctamente.
 
-### Tips - Comandos utililes
-- Inicializar un proyecto sequelize 
+## Uso
 
-```npx sequelize-cli init```
-- Generar un modelos simple
+Seguí estos pasos para ejecutar el proyecto:
 
+1. Iniciá el servidor:
 
-```npx sequelize-cli model:generate --name Carrera --attributes "nombre:string,grado:string,universidad:string"```
+```bash npm start```
 
-## API
-Implementar la API utilizando el framework express en el entorde de ejecucion de un poryecto NodeJs. Organizar el código en rutas, controlers y middleware utilizando la separación por recurso. A continuación se detallan los endpoinds que deberán estar disponbiles en la API.
+2. Abrí Postman o la herramienta de API que uses y probá las rutas de la API.
 
+## Rutas de la API
 
-|Verbo|Recurso|Status code|Descripción|
-|-----|-------|-----------|-----------|
-| GET   | /productos | 200 | Obtener todos los productos |
-| GET   | /productos/:id | 200, 404 | Obtener un producto en particular |
-| POST  | /productos | 201, 400 | Crear un producto |
-| PUT   | /productos/:id | 200, 404 | Modificar los datos de un producto en particular |
-| DELETE| /productos/:id | 200, 404, 500 | Borrar un producto en particular |
-| POST  | /productos/:id/fabricantes | 201, 404, 400 | Crear la asociación de producto con 1 o N fabricantes |
-| GET   | /productos/:id/fabricantes | 200, 404 | Obtener todos los fabricantes de un producto |
-| POST  | /productos/:id/componentes | 201, 404, 400 | Crear la asociación de producto con 1 o N componentes |
-| GET   | /productos/:id/componentes | 200, 404 | Obtener todos los componentes de un producto |
-| GET   | /fabricantes | 200 | Obtener todos los fabricantes |
-| GET   | /fabricantes/:id | 200, 404 | Obtener un fabricante en particular |
-| POST  | /fabricantes | 201, 400 | Crear un fabricante |
-| PUT   | /fabricantes/:id | 200, 404 | Modificar los datos de un fabricante en particular |
-| DELETE| /fabricantes/:id | 200, 404, 500 | Borrar un fabricante en particular |
-| GET   | /fabricantes/:id/productos | 200, 404 | Obtener todos los productos de un fabricante |
-| GET   | /componentes | 200 | Obtener todos los componentes |
-| GET   | /componentes/:id | 200, 404 | Obtener un componente en particular |
-| POST  | /componentes | 201, 400 | Crear un componente |
-| PUT   | /componentes/:id | 200, 404 | Modificar los datos de un componente en particular |
-| DELETE| /componentes/:id | 200, 404, 500 | Borrar un componente en particular |
-| GET   | /componentes/:id/productos | 200, 404 | Obtener todos los productos de un componente |
+Acá tenés una lista de las rutas del proyecto listas para probar en tu herramienta de API:
 
-## Ejemplos
-A modo de ejemplo se muestra el resultado de algunas respuesta de los endpoind detallado en la tabla de la sección anterior.
+### Productos
 
-Recurso:  **_/fabricantes/1/productos_**
+* Obtener todos los productos
+    - Método: GET
+    - URL: http://localhost:3001/productos
 
-Obtiene los datos del fabricante registrado con el id 1, con todos los productos que fabrica, incluyendo los atributos de cada producto y los componentes asociados a esos productos.
+* Obtener un producto por ID
+    - Método: GET
+    - URL: http://localhost:3001/productos/:id
 
-```
-{
-    "id": 1,
-    "nombre": "TechCorp",
-    "direccion": "1234 Elm St, Ciudad",
-    "contacto": "+123456789",
-    "pathImgPerfil": "/images/fabricantes/techcorp.jpg",
-    "productos": [
+* Agregar un nuevo producto
+    - Método: POST
+    - URL: http://localhost:3001/productos
+    - Cuerpo (Body):
+    ```json
         {
-            "id": 1,
-            "nombre": "Laptop X200",
-            "descripcion": "Una laptop de alto rendimiento",
-            "precio": 1200.99,
-            "pathImg": "/images/productos/laptop-x200.jpg",
-            "componentes": [
-                {
-                    "id": 1,
-                    "nombre": "Procesador Intel i7",
-                    "descripcion": "Procesador de octava generación"
-                },
-                {
-                    "id": 2,
-                    "nombre": "SSD 1TB",
-                    "descripcion": "Disco sólido de 1TB de capacidad"
-                }
-            ]
-        },
-        {
-            "id": 2,
-            "nombre": "Smartphone S5",
-            "descripcion": "Teléfono inteligente con pantalla OLED",
-            "precio": 799.99,
-            "pathImg": "/images/productos/smartphone-s5.jpg",
-            "componentes": [
-                {
-                    "id": 3,
-                    "nombre": "Pantalla OLED 6.5 pulgadas",
-                    "descripcion": "Pantalla de alta definición"
-                },
-                {
-                    "id": 4,
-                    "nombre": "Batería 4000mAh",
-                    "descripcion": "Batería de larga duración"
-                }
-            ]
+        "nombre": "Nuevo Producto",
+        "descripcion": "Descripción del nuevo producto",
+        "precio": 100,
+        "pathImg": "ruta/a/la/imagen.jpg"
         }
-    ]
-}
+    ```
+
+* Modificar un producto por ID
+    - Método: PUT
+    - URL: http://localhost:3001/productos/:id
+    - Cuerpo (Body):
+    ```json
+    {
+    "nombre": "Producto Actualizado",
+    "descripcion": "Descripción actualizada",
+    "precio": 150,
+    "pathImg": "ruta/a/la/imagen_actualizada.jpg"
+    }
+    ```
+
+* Eliminar un producto por ID
+    - Método: DELETE
+    - URL: http://localhost:3001/productos/:id
+
+* Crear un producto con fabricante
+    - Método: POST
+    - URL: http://localhost:3001/productos/:id/fabricantes
+    - Cuerpo (Body):
+    ```json
+    {
+    "nombreFabricante": "Nombre del Fabricante",
+    "direccion": "Dirección del Fabricante"
+    }
+    ```
+
+* Obtener fabricantes de un producto por ID
+    - Método: GET
+    - URL: http://localhost:3001/productos/:id/fabricantes
+
+* Crear un producto con componentes
+    - Método: POST
+    - URL: http://localhost:3001/productos/:id/componentes
+    - Cuerpo (Body):
+    ```json
+    {
+    "nombreComponente": "Nombre del Componente",
+    "descripcion": "Descripción del Componente"
+    }
+    ```
+
+* Obtener componentes de un producto por ID
+    - Método: GET
+    - URL: http://localhost:3001/productos/:id/componentes
+
+## Resumen de URLs
+
+1. Obtener todos los productos: GET ```http://localhost:3001/productos```
+2. Obtener un producto por ID: GET ```http://localhost:3001/productos/:id```
+3. Agregar un nuevo producto: POST ```http://localhost:3001/productos```
+4. Modificar un producto por ID: PUT ```http://localhost:3001/productos/:id```
+5. Eliminar un producto por ID: DELETE ```http://localhost:3001/productos/:id```
+6. Crear un producto con fabricante: POST ```http://localhost:3001/productos/:id/fabricantes```
+7. Obtener fabricantes de un producto por ID: GET ```http://localhost:3001/productos/:id/fabricantes```
+8. Crear un producto con componentes: POST ```http://localhost:3001/productos/:id/componentes```
+9. Obtener componentes de un producto por ID: GET ```http://localhost:3001/productos/:id/componentes```
+
+### Fabricantes
+
+* Obtener todos los fabricantes
+    - Método: GET
+    - URL: http://localhost:3001/fabricantes
+
+* Obtener un fabricante por ID
+    - Método: GET
+    - URL: http://localhost:3001/fabricantes/:id
+
+* Agregar un nuevo fabricante
+    - Método: POST
+    - URL: http://localhost:3001/fabricantes
+    - Cuerpo (Body):
+    ```json
+    {
+    "nombre": "Nuevo Fabricante",
+    "direccion": "Dirección del nuevo fabricante"
+    }
+    ```
+
+* Modificar un fabricante por ID
+    - Método: PUT
+    - URL: http://localhost:3001/fabricantes/:id
+    - Cuerpo (Body):
+    ```json
+    {
+    "nombre": "Fabricante Actualizado",
+    "direccion": "Dirección actualizada"
+    }
+    ```
+
+* Eliminar un fabricante por ID
+    - Método: DELETE
+    - URL: http://localhost:3001/fabricantes/:id
+
+* Obtener productos de un fabricante por ID
+    - Método: GET
+    - URL: http://localhost:3001/fabricantes/:id/productos
+
+## Resumen de URLs
+
+1. Obtener todos los fabricantes: GET ```http://localhost:3001/fabricantes```
+2. Obtener un fabricante por ID: GET ```http://localhost:3001/fabricantes/:id```
+3. Agregar un nuevo fabricante: POST ```http://localhost:3001/fabricantes```
+4. Modificar un fabricante por ID: PUT ```http://localhost:3001/fabricantes/:id```
+5. Eliminar un fabricante por ID: DELETE ```http://localhost:3001/fabricantes/:id```
+6. Obtener productos de un fabricante por ID: GET ```http://localhost:3001/fabricantes/:id/productos```
+
+### Componentes
+
+* Obtener todos los componentes
+    - Método: GET
+    - URL: http://localhost:3001/componentes
+
+* Obtener un componente por ID
+    - Método: GET
+    - URL: http://localhost:3001/componentes/:id
+
+* Agregar un nuevo componente
+    - Método: POST
+    - URL: http://localhost:3001/componentes
+    - Cuerpo (Body):
+
+```json 
+    {
+    "nombre": "Nuevo Componente",
+    "descripcion": "Descripción del nuevo componente",
+    "precio": 100,
+    "pathImg": "ruta/a/la/imagen.jpg"
+    } 
 ```
 
-Recurso: **_/productos/1/fabricantes_**
+* Actualizar un componente por ID
+    - Método: PUT
+    - URL: http://localhost:3001/componentes/:id
+    - Cuerpo (Body):
 
-Obtiene los datos del producto registrado con el id 1, con todos los fabricantes que lo producen, incluyendo los atributos de cada fabricante.
-
-```
-{
-    "id": 1,
-    "nombre": "Laptop X200",
-    "descripcion": "Una laptop de alto rendimiento",
-    "precio": 1200.99,
-    "pathImg": "/images/productos/laptop-x200.jpg",
-    "fabricantes": [
-        {
-            "id": 1,
-            "nombre": "TechCorp",
-            "direccion": "1234 Elm St, Ciudad",
-            "contacto": "+123456789",
-            "pathImgPerfil": "/images/fabricantes/techcorp.jpg"
-        },
-        {
-            "id": 2,
-            "nombre": "Innovatech",
-            "direccion": "4567 Oak Ave, Ciudad",
-            "contacto": "+987654321",
-            "pathImgPerfil": "/images/fabricantes/innovatech.jpg"
-        }
-    ]
-}
+```json 
+    {
+    "nombre": "Componente Actualizado",
+    "descripcion": "Descripción actualizada",
+    "precio": 150,
+    "pathImg": "ruta/a/la/imagen_actualizada.jpg"
+    }
 ```
 
-## Consideraciones Finales sobre la Entrega
+* Eliminar un componente por ID
+    - Método: DELETE
+    - URL: http://localhost:3001/componentes/:id
 
-- El equipo debera entegar un repositorio de github con todas las instrucciones necesarias para correr la api. 
-- Deberán  detallar los commandos necesarios para la instalación y ejecución de la api.
-- Dentro del Readme.md deberá tener una imagen del diagrama entidad-relacion
-- El puerto de listener deberá ser configurable por variable de entorno
-- La entega debe soportar cambiar la configuración del motor de base de datos de forma simple en funcion de probar con distintos motores.
+* Obtener productos de un componente por ID
+    - Método: GET
+    - URL: http://localhost:3001/componentes/:id/productos
 
+## Resumen de URLs
 
+1. Obtener todos los componentes: GET ```http://localhost:3001/componentes```
+2. Obtener un componente por ID: GET ```http://localhost:3001/componentes/:id```
+3. Agregar un nuevo componente: POST ```http://localhost:3001/componentes```
+4. Modificar un componente por ID: PUT ```http://localhost:3001/componentes/:id```
+5. Eliminar un componente por ID: DELETE ```http://localhost:3001/componentes/:id```
+6. Obtener productos de un componente por ID: GET ```http://localhost:3001/componentes/:id/productos```
 
+## Estructura del Proyecto
 
+Explicación breve de la estructura del proyecto y la función de cada directorio:
+
+```
+/src
+  /controllers   # Controladores de la aplicación
+  /middlewares   # Middlewares para validaciones y autenticación
+  /models        # Modelos de la base de datos
+  /routes        # Definición de las rutas de la API
+  /schemas       # Esquemas de validación
+  /config        # Configuración de la base de datos y otros parámetros
+  app.js         # Archivo principal de la aplicación
+```
