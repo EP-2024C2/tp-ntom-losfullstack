@@ -16,15 +16,15 @@ Seguí estos pasos para instalar las dependencias del proyecto:
 
 1. Cloná el repositorio:
 
-   ```bash git clone https://github.com/EP-2024C2/tp-ntom-losfullstack.git```
+   ```git clone https://github.com/EP-2024C2/tp-ntom-losfullstack.git```
 
 2. Navegá al directorio del proyecto:
 
-    ```bash cd tp-ntom-losfullstack```
+    ```cd tp-ntom-losfullstack```
 
 3. Instalá las dependencias:
 
-    ```bash npm install```
+    ```npm install```
 
 ## Configuración
 
