@@ -258,3 +258,7 @@ Explicación breve de la estructura del proyecto y la función de cada directori
   /config        # Configuración de la base de datos y otros parámetros
   app.js         # Archivo principal de la aplicación
 ```
+
+## Diagrama Entidad-Relación
+
+![Diagrama Entidad-Relación del proyecto](DER.png)
