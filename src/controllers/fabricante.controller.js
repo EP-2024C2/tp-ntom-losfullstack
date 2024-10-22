@@ -32,13 +32,13 @@ fabricanteController.obtenerFabricante = obtenerFabricante
 
 
 const agregarFabricante = async (req, res) => {
-    const { nombre, direccion, numeroContacto, pathImgPerfil } = req.body
+    const { nombre, direccion, numeroContacto, pathImg } = req.body
     try {
         const fabricante = await Fabricante.create({
             nombre,
             direccion,
             numeroContacto,
-            pathImgPerfil
+            pathImg
         })
         res.status(202).json(fabricante)
     } catch (error) {
@@ -51,7 +51,7 @@ fabricanteController.agregarFabricante = agregarFabricante
 
 const actualizarFabricante = async (req, res) => {
     const id = req.params.id
-    const { nombre, direccion, numeroContacto, pathImgPerfil } = req.body
+    const { nombre, direccion, numeroContacto, pathImg } = req.body
     try {
         const fabricante = await Fabricante.findByPk(id)
         if (!fabricante) {
@@ -60,7 +60,7 @@ const actualizarFabricante = async (req, res) => {
         fabricante.nombre = nombre ?? fabricante.nombre
         fabricante.direccion = direccion ?? fabricante.direccion
         fabricante.numeroContacto = numeroContacto ?? fabricante.numeroContacto
-        fabricante.pathImgPerfil = pathImgPerfil ?? fabricante.pathImgPerfil
+        fabricante.pathImg = pathImg ?? fabricante.pathImg
         
         await fabricante.save()
         res.status(202).json(fabricante)

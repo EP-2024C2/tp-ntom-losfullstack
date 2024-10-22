@@ -29,7 +29,7 @@ componenteController.obtenerComponenteById = obtenerComponenteById;
 
 const agregarComponente = async (request, response) => 
     {
-    const {nombre, descripcion} = requestuest.body
+    const {nombre, descripcion} = request.body
     try {
         const componente = await Componente.create
             ({
