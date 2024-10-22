@@ -86,7 +86,6 @@ const borrarFabricante = async (req, res) => {
         await fabricante.destroy()
         res.status(200).json({ message: `Fabricante con ID ${id} eliminado con éxito.`})
     } catch (error) {
-        console.log('QUE PASO', error);
         res.status(500).json({ error: 'Error al eliminar al fabricante.'})
     }
 }
