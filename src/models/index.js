@@ -1,43 +1,44 @@
-'use strict';
+const { Sequelize, DataTypes } = require('sequelize');
+const sequelize = require('../config/database'); // Ajusta el path
+const ProductoModel = require('./Producto');
+const FabricanteModel = require('./Fabricante');
+const ComponenteModel = require('./Componente');
 
-const fs = require('fs');
-const path = require('path');
-const Sequelize = require('sequelize');
-const process = require('process');
-const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.json')[env];
-const db = {};
+const Producto = ProductoModel(sequelize, DataTypes);
+const Fabricante = FabricanteModel(sequelize, DataTypes);
+const Componente = ComponenteModel(sequelize, DataTypes);
 
-let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-  sequelize = new Sequelize(config.database, config.username, config.password, config);
-}
-
-fs
-  .readdirSync(__dirname)
-  .filter(file => {
-    return (
-      file.indexOf('.') !== 0 &&
-      file !== basename &&
-      file.slice(-3) === '.js' &&
-      file.indexOf('.test.js') === -1
-    );
-  })
-  .forEach(file => {
-    const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
-    db[model.name] = model;
-  });
-
-Object.keys(db).forEach(modelName => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
-  }
+Producto.belongsToMany(Fabricante, { 
+    through: 'ProductoFabricante', 
+    foreignKey: 'productoId', 
+    otherKey: 'fabricanteId', 
+    as: 'Fabricantes' 
 });
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+Fabricante.belongsToMany(Producto, { 
+    through: 'ProductoFabricante', 
+    foreignKey: 'fabricanteId', 
+    otherKey: 'productoId', 
+    as: 'Productos' 
+});
 
-module.exports = db;
+
+Producto.belongsToMany(Componente, { 
+    through: 'ProductoComponente', 
+    foreignKey: 'productoId', 
+    otherKey: 'componenteId', 
+    as: 'Componentes' 
+});
+
+Componente.belongsToMany(Producto, { 
+    through: 'ProductoComponente', 
+    foreignKey: 'componenteId', 
+    otherKey: 'productoId', 
+    as: 'Productos' 
+});
+
+module.exports = {
+    Producto,
+    Fabricante,
+    Componente
+};

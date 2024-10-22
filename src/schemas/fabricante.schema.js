@@ -3,7 +3,7 @@ const dataMinLength = {
     nombre: 3,
     direccion: 5,
     numeroContacto: 8,
-    pathImgPerfil: 5
+    pathImg: 5
 }
 
 const idSchema = Joi.number().integer().positive().required().messages({
@@ -33,7 +33,7 @@ const creationSchema = Joi.object({
         'string.min': 'El número de contacto debe tener al menos {#limit} caracteres.',
         'any.required': 'El número de contacto es obligatorio.'
     }),
-    pathImgPerfil: Joi.string().min(dataMinLength.pathImgPerfil).optional().messages({
+    pathImg: Joi.string().min(dataMinLength.pathImg).optional().messages({
         'string.base': 'La ruta de la imagen de perfil debe ser una cadena de texto.',
         'string.empty': 'La ruta de la imagen de perfil no puede estar vacía.',
         'string.min': 'La ruta de la imagen de perfil debe tener al menos {#limit} caracteres.'

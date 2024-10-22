@@ -7,6 +7,6 @@ const router = Router();
 
 router.use('/productos', productoRoutes);
 router.use('/fabricantes', fabricanteRoutes);
-router.use('/componente', componenteRoutes);
+router.use('/componentes', componenteRoutes);
 
 module.exports = router;

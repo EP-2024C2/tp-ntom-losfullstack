@@ -1,7 +1,9 @@
 const express = require('express')
 const routes  = require('./routes/index')
-const sequelize = require('./config/config.json')
-const db = require('./models')
+const sequelize = require('./config/database')
+require('dotenv').config();
+
+const PORT = process.env.PORT;
 
 const app = express()
 
@@ -11,16 +13,16 @@ app.use(routes)
 
 async function startDatabase(){
     try {
-        await db.sequelize.sync({ force: false }) //Si ponemos en true se reiniciara la base de datos al inicar.
+        await sequelize.sync({ force: false })
         console.log('Base de datos sincronizada')
     } catch (error) {
+        console.log(error);
         console.log('Error al sicronizar o inicializar los datos')
     }
 }
 startDatabase()
 
 
-const PORT = 3001
 app.listen(PORT, ()=>{
     console.log(`Ejecutando servidor en puerto ${PORT}`)
 })

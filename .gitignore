@@ -1,2 +1,4 @@
 node_modules/
 apuntes.txt
+.env
+data/

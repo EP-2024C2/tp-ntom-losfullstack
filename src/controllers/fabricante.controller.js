@@ -1,4 +1,4 @@
-const { Fabricante, Producto } = require('../models/') 
+const { Fabricante, Producto, Componente } = require('../models/') 
 const fabricanteController = {}
 
 
@@ -32,13 +32,13 @@ fabricanteController.obtenerFabricante = obtenerFabricante
 
 
 const agregarFabricante = async (req, res) => {
-    const { nombre, direccion, numeroContacto, pathImgPerfil } = req.body
+    const { nombre, direccion, numeroContacto, pathImg } = req.body
     try {
         const fabricante = await Fabricante.create({
             nombre,
             direccion,
             numeroContacto,
-            pathImgPerfil
+            pathImg
         })
         res.status(202).json(fabricante)
     } catch (error) {
@@ -51,7 +51,7 @@ fabricanteController.agregarFabricante = agregarFabricante
 
 const actualizarFabricante = async (req, res) => {
     const id = req.params.id
-    const { nombre, direccion, numeroContacto, pathImgPerfil } = req.body
+    const { nombre, direccion, numeroContacto, pathImg } = req.body
     try {
         const fabricante = await Fabricante.findByPk(id)
         if (!fabricante) {
@@ -60,7 +60,7 @@ const actualizarFabricante = async (req, res) => {
         fabricante.nombre = nombre ?? fabricante.nombre
         fabricante.direccion = direccion ?? fabricante.direccion
         fabricante.numeroContacto = numeroContacto ?? fabricante.numeroContacto
-        fabricante.pathImgPerfil = pathImgPerfil ?? fabricante.pathImgPerfil
+        fabricante.pathImg = pathImg ?? fabricante.pathImg
         
         await fabricante.save()
         res.status(202).json(fabricante)
@@ -79,10 +79,14 @@ const borrarFabricante = async (req, res) => {
         if (!fabricante) {
             return res.status(404).json({ error: `El ID ${id} no corresponde a ningún fabricante.`})
         }
-
+        const producto = await Fabricante.findByPk(id, { include: 'Productos' });
+        if (producto && producto.Productos && producto.Productos.length > 0) {
+            return res.status(400).json({ error: 'No se puede eliminar el fabricante porque tiene productos asociados.' });
+        }
         await fabricante.destroy()
         res.status(200).json({ message: `Fabricante con ID ${id} eliminado con éxito.`})
     } catch (error) {
+        console.log('QUE PASO', error);
         res.status(500).json({ error: 'Error al eliminar al fabricante.'})
     }
 }
@@ -98,8 +102,13 @@ const obtenerProductosDeFabricante = async (req, res) => {
                 model: Producto,
                 as: 'Productos',
                 attributes: { exclude: ['fabricanteId'] },
+                include: {
+                    model: Componente,
+                    as: 'Componentes', 
+                    attributes: ['id', 'nombre', 'descripcion'],
+                },
                 required: false
-            }
+            },
         })
         if (!fabricante) {
             return res.status(404).json({ error: `El ID ${id} no corresponde a ningún fabricante.`})
